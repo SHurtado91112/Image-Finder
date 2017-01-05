@@ -126,6 +126,7 @@ class ViewController: UIViewController
                     Constants.FlickrParameterKeys.APIKey: Constants.FlickrParameterValues.APIKey,
                     Constants.FlickrParameterKeys.Text:
                         phraseTextField.text!,
+                    Constants.FlickrParameterKeys.BoundingBox: bboxString(),
                     Constants.FlickrParameterKeys.SafeSearch:
                         Constants.FlickrParameterValues.UseSafeSearch,
                     Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL,
@@ -139,7 +140,7 @@ class ViewController: UIViewController
         else
         {
             setUIEnabled(true)
-            finderTitleLabel.text = "Lat should be [-90, 90].\nLon should be [-180, 180]."
+            finderTitleLabel.text = "Latitude: [-90, 90] & Longitude: [-180, 180]."
         }
     }
     
@@ -249,7 +250,13 @@ class ViewController: UIViewController
             
             // select a random photo
             let randomPhotoIndex = Int(arc4random_uniform(UInt32(photoArray.count)))
-            let photoDictionary = photoArray[randomPhotoIndex] as [String:AnyObject]
+            guard let photoDictionary = photoArray[randomPhotoIndex] as? [String:AnyObject]
+                else
+            {
+                displayError("Index out of range: \(randomPhotoIndex) / \(photoArray.count) \n\n Keys: '\(Constants.FlickrResponseKeys.Photos)' and '\(Constants.FlickrResponseKeys.Photo)' in \(parsedResult)")
+                return
+            }
+            
             let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
             
             /* GUARD: Does our photo have a key for 'url_m'? */
