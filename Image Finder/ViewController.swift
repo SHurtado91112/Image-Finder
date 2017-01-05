@@ -353,26 +353,6 @@ class ViewController: UIViewController
                 self.layer4.transform = CGAffineTransform(translationX: 0, y: 4)
         })
         
-        UIView.animate(withDuration: 1.5, animations:
-            {
-                self.layer1.transform = CGAffineTransform(translationX: 0, y: -3)
-                
-                self.layer2.transform = CGAffineTransform(translationX: 0, y: -3)
-                
-                self.layer3.transform = CGAffineTransform(translationX: 0, y: -3)
-                
-                self.layer4.transform = CGAffineTransform(translationX: 0, y: -3)
-        })
-        UIView.animate(withDuration: 2, animations:
-            {
-                self.layer1.transform = CGAffineTransform(translationX: 0, y: 2)
-                
-                self.layer2.transform = CGAffineTransform(translationX: 0, y: 2)
-                
-                self.layer3.transform = CGAffineTransform(translationX: 0, y: 2)
-                
-                self.layer4.transform = CGAffineTransform(translationX: 0, y: 2)
-        })
     }
     
     func exitingAnimation()
